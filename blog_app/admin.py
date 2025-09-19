@@ -11,6 +11,10 @@ class BlogAdmin (admin.ModelAdmin):
     list_editable = ('is_public',)
 
 
+class catogoryAdmin(admin.ModelAdmin):
+    list_display = ('id', "category_name")
+
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(BlogComment)
-admin.site.register(Categories)
+admin.site.register(Categories, catogoryAdmin)

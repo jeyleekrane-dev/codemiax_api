@@ -1,10 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 from .import views
+from rest_framework import routers
+
 
 urlpatterns = [
-    path('blogs/', views.FetchAllBlogs.as_view(), name='blogs_list'),
-    path('blogs/<int:pk>', views.SingleAndUpdate.as_view()),
-    path('categories/', views.CategoriesList.as_view()),
-    path('categories/<int:pk>', views.CategoriesDetails.as_view()),
-    # path('cat/', views. CategorSerializerLink.as_view(), name= 'cat-name')
+    path('blogs/', views.BlogAll.as_view()),
+    path('blogs/<int:pk>/', views.BlogDetailView.as_view()),
+    path('blogs/comments/', views.BlogCommentView.as_view()),
+    path('blogs/comments/<int:pk>', views.BlogCommentDetailView.as_view()),
+    path('blogs/categories/', views.CategoriesView.as_view()),
+    path('blogs/categories/<int:pk>', views.CategoriesDetailView.as_view())
+
+
 ]

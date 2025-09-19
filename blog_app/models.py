@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 from django.template.defaultfilters import slugify
+import random
+import string
 
 
 class Categories(models.Model):
@@ -26,9 +28,12 @@ class Blog(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.blog_title) + "-" + \
-                str(self.author.username)
-        super(Blog, self).save(*args, **kwargs)
+            base_slug = slugify(
+                self.blog_title + " " + self.author.username + " " + self.category.category_name)
+            self.slug = base_slug + \
+                " " .join(random.choice(string.ascii_letters + string.digits)
+                          for _ in range(5))
+        return super().save(*args, **kwargs)
 
 
 class BlogComment (models.Model):
